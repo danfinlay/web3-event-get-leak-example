@@ -17,11 +17,16 @@ function setupEns() {
 
   const provider = web3.currentProvider
 
+  // This simple log query, for just two blocks,
+  // Will send a `eth_newFilter` request to the provider,
+  // Registering a filter process on the provider.
   const Registrar = web3.eth.contract(abi)
   registrar = Registrar.at(registrarAddress)
 
   window.reg = registrar
 
+  // Currently this simply pushes on the filter logs request stack,
+  // Firing an `eth_getFilterLogs` request, when no filter is needed for this request.
   var auctionStarted = reg.AuctionStarted({}, {
     fromBlock: 3767372,
     toBlock: 3767373,
